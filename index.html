@@ -1,58 +1,78 @@
 <!DOCTYPE html>
+<div>
+    <button id="rock">rock</button>
+    <button id="paper">paper</button>
+    <button id="scissors">scissors</button>
+</div>
+<div id="results">Computer Score 
+    <label id="computerScorelbl">0</label>
+    <label id="playerScorelbl">0</label>
+     Player Score
+</div>
 <script>
-    var playerChoice = {};
-    var computerChoice = {};
+    var playerChoice;
+    var computerChoice;
 
     var computerScore=0;
     var playerScore=0;
+
+
+    const buttons=document.querySelectorAll('button');
+    buttons.forEach((button)=>{
+        button.addEventListener('click',()=>{
+            computerPlay();
+            playerChoice=button.id;
+            oneRound();
+            var playerScorelbl=document.getElementById('playerScorelbl');
+            playerScorelbl.innerHTML=playerScore;
+            var computerScorelbl=document.getElementById('computerScorelbl');
+            computerScorelbl.innerHTML=computerScore;
+            if(playerScore==5){
+                alert("Player Wins!");
+            }
+            else if(computerScore==5){
+                alert("Computer Wins!");
+            }
+    });
+    });
+
 
     function computerPlay(){
         var computerRandom=Math.floor(Math.random()*3);
         var computerSelection;
         switch(computerRandom){
             case 0:
-            computerChoice.computerSelection="rock";
+            computerChoice="rock";
             break;
             case 1:
-            computerChoice.computerSelection="paper";
+            computerChoice="paper";
             break;
             case 2:
-            computerChoice.computerSelection="scissors";
+            computerChoice="scissors";
             break;
         }
     }
-    function playerMove(){
-        playerChoice.playerSelection = prompt("Rock, Paper, or Scissors?");
-        playerChoice.playerSelection = playerChoice.playerSelection.toLowerCase();
-        return playerChoice.playerSelection;
-    }
+
     function oneRound(){
-        if(playerChoice.playerSelection == "rock"){
-            console.log(computerChoice.computerSelection);
-            if(computerChoice.computerSelection == "rock"){
-                console.log("computer score: " + computerScore);
-                console.log("player score: " + playerScore);
+        if(playerChoice == "rock"){
+            if(computerChoice == "rock"){
                 return "Rock ties with rock.";
             }
-            else if (computerChoice.computerSelection=="paper"){
+            else if (computerChoice=="paper"){
                 computerScore=computerScore+1;
-                console.log("computer score: " + computerScore);
-                console.log("player score: " + playerScore);
                 return "You lose! Paper covers rock.";
             }
             else{
                 playerScore=playerScore+1;
-                console.log("computer score: " + computerScore);
-                console.log("player score: " + playerScore);
                 return "You win! Rock smashes scissors."
             }
         }
-        else if(playerChoice.playerSelection =="paper"){
-            if(computerChoice.computerSelection == "rock"){
+        else if(playerChoice =="paper"){
+            if(computerChoice == "rock"){
                 playerScore=playerScore+1;
                 return "You win! Paper covers rock.";
             }
-            else if (computerChoice.computerSelection=="paper"){
+            else if (computerChoice=="paper"){
                 return "Paper ties with paper.";
             }
             else{
@@ -60,12 +80,12 @@
                 return "You lose! Scissors cuts paper."
             }
         }
-        else if(playerChoice.playerSelection=="scissors"){
-            if(computerChoice.computerSelection == "rock"){
+        else if(playerChoice=="scissors"){
+            if(computerChoice == "rock"){
                 computerScore=computerScore+1;
                 return "You lose! Rock smashes scissors.";
             }
-            else if (computerChoice.computerSelection=="paper"){
+            else if (computerChoice=="paper"){
                 playerScore=playerScore+1;
                 return "You win! Scissors cuts paper.";
             }
@@ -77,16 +97,6 @@
             return "You did not enter a valid move."
         }
     }
-    function game(playerSelection, computerSelection){
-        while(computerScore<5 && playerScore<5){
-        computerPlay();   
-        playerMove();
-        oneRound();
-        }
-        console.log("Game over!");
-        console.log("computer score: " + computerScore);
-        console.log("player score: " + playerScore);
-    }
-</script>
 
+</script>
 </html>
